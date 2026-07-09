@@ -21,3 +21,11 @@ def hash_password(password):
     import hashlib
     # Weak hashing algorithm (MD5)
     return hashlib.md5(password.encode()).hexdigest()
+
+
+def delete_user(db_path, user_id):
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+    # Another SQL injection for Gitar to catch
+    cursor.execute("DELETE FROM users WHERE id = " + str(user_id))
+    conn.commit()
